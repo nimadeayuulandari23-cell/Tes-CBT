@@ -1,4 +1,4 @@
-const URL = "https://script.google.com/macros/s/AKfycbyAb8zvGBRMQnEqU3YaCZC3Ceme71v9cJPG-ZpgNJzodbgrx8gIqveXGEfKeuzC7Uwfrg/exec"; 
+const URL = "https://script.google.com/macros/s/AKfycbyz9MKBvsPfKyNTG_VfFa3zt6aPQI17BtOteFWGeapXM5pxLNyAdJZ5DbvA433-9Jtg/exec"; 
 
 let user = {}, questions = [], kunci = [], idx = 0, answers = {}, time = 3600;
 
