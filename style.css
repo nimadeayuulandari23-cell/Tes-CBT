@@ -1,0 +1,5 @@
+body { background-color: #f1f5f9; user-select: none; }
+.btn-nav { width: 40px; height: 40px; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; border-radius: 8px; cursor: pointer; background: white; font-weight: bold; }
+.btn-nav.active { background: #1e40af; color: white; }
+.btn-nav.done { background: #10b981; color: white; }
+.hidden { display: none; }
