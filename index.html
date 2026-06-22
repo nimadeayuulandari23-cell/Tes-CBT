@@ -3,48 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBT SMPN 3 UBUD</title>
+    <title>CBT SMP Negeri 3 Ubud - Secured</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                enableMenu: false
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body { background-color: #f8fafc; user-select: none; -webkit-user-select: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .header-blue { background-color: #1e3a8a; }
+        .question-nav { cursor: pointer; border: 2px solid #e2e8f0; min-width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-weight: 800; transition: 0.3s; background: white; }
+        .question-nav.active { background-color: #1e3a8a; color: white; border-color: #1e3a8a; transform: scale(1.1); }
+        .question-nav.done { background-color: #10b981; color: white; border-color: #10b981; }
+        .hidden { display: none; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+        
+        /* Overlay untuk peringatan keras */
+        #securityOverlay { display: none; position: fixed; top: 0; left: 0; w-full: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; color: white; text-align: center; padding-top: 20%; }
+    </style>
 </head>
 <body oncontextmenu="return false;">
-    <div class="bg-blue-900 p-4 text-white shadow-lg sticky top-0 z-50 flex items-center">
-        <h1 class="text-xl font-bold">CBT SMPN 3 UBUD</h1>
+
+<div id="securityOverlay">
+    <h1 class="text-4xl font-black mb-4">AKSES DIBLOKIR</h1>
+    <p class="text-xl">Jangan gunakan Split Screen atau mengecilkan jendela browser!<br>Kembalikan ke layar penuh untuk melanjutkan.</p>
+</div>
+
+<div class="header-blue p-4 text-white flex items-center shadow-xl sticky top-0 z-50">
+  <img src="https://i.ibb.co.com/SY0R8c8/images.jpg" class="h-6 mr-2 bg-white p-1 rounded shadow-sm">
+  <div>
+    <h1 class="text-xl font-black uppercase leading-none">CBT SMPN 3 UBUD</h1>
+    <p class="text-[9px] tracking-[0.1em] opacity-80 uppercase font-bold">Integritas & Kejujuran</p>
+  </div>
+</div>
+
+<div id="app" class="container mx-auto p-4 max-w-6xl">
+  
+  <div id="loginPage" class="max-w-md mx-auto bg-white p-10 rounded-3xl shadow-2xl mt-10 border border-gray-100 fade-in">
+    <div class="text-center mb-8">
+      <div class="flex justify-center mb-6">
+        <img src="https://i.ibb.co.com/SY0R8c8/images.jpg" class="h-24 w-24 object-contain">
+      </div>
+      <h2 class="text-3xl font-black text-gray-800">Login Sistem</h2>
+      <p class="text-gray-400 font-medium">Gunakan akun yang telah terdaftar</p>
     </div>
 
-    <div id="app" class="container mx-auto p-4 mt-6">
-        <div id="loginPage" class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-xl">
-            <h2 class="text-2xl font-bold mb-6 text-center">Login Siswa/Guru</h2>
-            <select id="kelas" class="w-full p-3 mb-4 border rounded-xl">
-                <option value="">-- Pilih Kelas --</option>
-                <option>9A</option><option>9B</option><option>9C</option>
-            </select>
-            <input type="text" id="username" placeholder="Username" class="w-full p-3 mb-4 border rounded-xl">
-            <input type="password" id="password" placeholder="Password" class="w-full p-3 mb-6 border rounded-xl">
-            <button onclick="auth('siswa')" class="w-full bg-blue-600 text-white p-3 rounded-xl font-bold mb-2">MASUK SISWA</button>
-        </div>
+    <div class="space-y-5">
+      <select id="kelas" class="w-full border-2 p-4 rounded-2xl bg-gray-50 focus:ring-4 focus:ring-blue-100 outline-none transition">
+        <option value="">-- Pilih Kelas --</option>
+        <option>7A</option><option>7B</option><option>7C</option><option>7D</option><option>7E</option><option>7F</option><option>8A</option><option>8B</option><option>8C</option><option>8D</option><option>8E</option><option>8F</option><option>8G</option><option>9A</option><option>9B</option><option>9C</option><option>9D</option><option>9E</option><option>9F</option><option>9G</option><option>9H</option>
+      </select>
+      
+      <div class="relative">
+        <i class="fas fa-user absolute left-4 top-4 text-gray-400"></i>
+        <input type="text" id="username" placeholder="Username" class="w-full border-2 p-4 pl-12 rounded-2xl bg-gray-50 outline-none focus:ring-4 focus:ring-blue-100">
+      </div>
+      
+      <div class="relative">
+        <i class="fas fa-lock absolute left-4 top-4 text-gray-400"></i>
+        <input type="password" id="password" placeholder="Password" class="w-full border-2 p-4 pl-12 rounded-2xl bg-gray-50 outline-none focus:ring-4 focus:ring-blue-100">
+      </div>
 
-        <div id="examPage" class="hidden grid grid-cols-12 gap-6">
-            <div class="col-span-9 bg-white p-6 rounded-2xl shadow-lg">
-                <div class="flex justify-between border-b pb-4 mb-4">
-                    <span id="noSoal" class="font-bold text-lg"></span>
-                    <span id="timer" class="text-red-600 font-bold text-lg"></span>
-                </div>
-                <div id="soalBox" class="min-h-[300px]"></div>
-                <div class="flex justify-between mt-6">
-                    <button id="prev" onclick="nav(-1)" class="bg-gray-200 px-6 py-2 rounded-lg">Kembali</button>
-                    <button id="next" onclick="nav(1)" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Lanjut</button>
-                    <button id="finish" onclick="selesai()" class="hidden bg-green-600 text-white px-6 py-2 rounded-lg">Selesai</button>
-                </div>
-            </div>
-            <div class="col-span-3 bg-white p-4 rounded-2xl shadow-lg h-fit">
-                <h3 class="text-center font-bold mb-4">Nomor Soal</h3>
-                <div id="petaSoal" class="flex flex-wrap gap-2 justify-center"></div>
-            </div>
-        </div>
+      <div class="flex gap-4 pt-4">
+        <button onclick="handleLogin('siswa')" class="w-1/2 bg-blue-700 hover:bg-blue-800 text-white p-5 rounded-2xl font-black transition-all shadow-lg active:scale-95 uppercase">SISWA</button>
+        <button onclick="handleLogin('guru')" class="w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white p-5 rounded-2xl font-black transition-all shadow-lg active:scale-95 uppercase">GURU</button>
+      </div>
     </div>
+  </div>
 
-    <script src="script.js"></script>
+  <div id="subjectPage" class="hidden text-center mt-10 fade-in">
+    <div class="bg-white p-12 rounded-3xl shadow-2xl max-w-lg mx-auto border border-gray-50">
+      <h2 id="welcomeUser" class="text-2xl font-black mb-2 text-gray-800"></h2>
+      <p class="text-gray-500 mb-8">Siap memulai ujian hari ini?</p>
+      <select id="mapel" class="w-full border-2 p-4 rounded-2xl mt-2 text-lg font-bold text-gray-700 bg-gray-50">
+          <option>Matematika</option><option>Bahasa Indonesia</option><option>PPKN</option><option>Seni Budaya/Prakarya</option><option>PJOK</option><option>Bahasa Bali</option><option>Informatika</option><option>Bahasa Inggris</option>
+          <option>IPA</option><option>IPS</option><option>Agama Hindu</option><option>Agama Islam</option><option>Agama Protestan</option><option>Agama Katolik</option>
+      </select>
+      <button id="btnMulai" onclick="startExamSequence()" class="mt-8 bg-blue-700 text-white w-full py-5 rounded-2xl font-black text-xl shadow-xl hover:bg-blue-800 transition">MULAI SEKARANG</button>
+    </div>
+  </div>
+
+  <div id="examPage" class="hidden grid grid-cols-12 gap-6 mt-4 fade-in">
+    <div class="col-span-12 lg:col-span-9 bg-white p-8 rounded-3xl shadow-2xl border border-gray-100">
+      <div class="flex justify-between border-b pb-5 mb-8 items-center">
+        <div>
+            <span id="labelMode" class="bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-xs font-bold mr-2">PILIHAN GANDA</span>
+            <span class="font-black text-gray-700 text-lg" id="infoNomor"></span>
+        </div>
+        <div class="bg-red-50 text-red-600 px-6 py-2 rounded-2xl border-2 border-red-100 shadow-sm font-black text-xl" id="timer">00:00</div>
+      </div>
+      <div id="soalContainer"></div>
+      <div class="flex justify-between mt-12 pt-8 border-t-2 border-gray-50">
+        <button id="prevBtn" onclick="changeSoal(-1)" class="bg-gray-100 text-gray-600 px-10 py-4 rounded-2xl font-black hover:bg-gray-200">SEBELUMNYA</button>
+        <button id="nextBtn" onclick="changeSoal(1)" class="bg-blue-700 text-white px-10 py-4 rounded-2xl font-black hover:bg-blue-800">BERIKUTNYA</button>
+        <button id="finishBtn" onclick="handleStepTransition()" class="hidden bg-emerald-600 text-white px-10 py-4 rounded-2xl font-black hover:bg-emerald-700">KUMPULKAN JAWABAN</button>
+      </div>
+    </div>
+    <div class="col-span-12 lg:col-span-3 bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 h-fit sticky top-24">
+      <h3 class="font-black mb-4 text-center text-gray-400 uppercase tracking-widest text-xs">Navigasi Soal</h3>
+      
+      <div class="flex gap-2 mb-6">
+        <button id="btnTabPG" onclick="switchMode('PG')" class="flex-1 py-2 rounded-xl font-bold text-xs transition-all border-2 border-blue-700 bg-blue-700 text-white">PG</button>
+        <button id="btnTabESAI" onclick="switchMode('ESAI')" class="flex-1 py-2 rounded-xl font-bold text-xs transition-all border-2 border-gray-200 text-gray-400">ESAI</button>
+      </div>
+
+      <div id="navGrid" class="flex flex-wrap gap-3 justify-center"></div>
+    </div>
+  </div>
+
+  <div id="teacherDashboard" class="hidden mt-6 fade-in">
+    <div class="bg-white p-8 rounded-3xl shadow-2xl border-t-[12px] border-emerald-600">
+      <h2 class="text-3xl font-black text-gray-800 mb-10">Review Hasil Ujian</h2>
+      <select id="selKls" onchange="loadRekap(this.value)" class="border-2 p-3 rounded-xl w-64 bg-white font-bold mb-6">
+          <option value="">-- Pilih Kelas --</option>
+          <option>7A</option><option>7B</option><option>7C</option><option>7D</option><option>7E</option><option>7F</option><option>8A</option><option>8B</option><option>8C</option><option>8D</option><option>8E</option><option>8F</option><option>8G</option><option>9A</option><option>9B</option><option>9C</option><option>9D</option><option>9E</option><option>9F</option><option>9G</option><option>9H</option>
+      </select>
+      <div class="grid grid-cols-12 gap-8">
+        <div id="absensiDiv" class="col-span-12 md:col-span-4 space-y-3"></div>
+        <div id="detailDiv" class="col-span-12 md:col-span-8 bg-gray-50 rounded-3xl p-10">Pilih Siswa</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // GANTI INI DENGAN URL WEB APP ANDA
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbyz9MKBvsPfKyNTG_VfFa3zt6aPQI17BtOteFWGeapXM5pxLNyAdJZ5DbvA433-9Jtg/exec";
+
+  let userData = {}, questions = [], questionsPG = [], questionsESAI = [], pgKunci = [], currentIdx = 0, answers = {}, timeLeft = 0, timerInterval, currentMode = 'PG', examConfig = {}, localRekap = [];
+  
+  // --- VARIABEL KEAMANAN ---
+  let cheatCount = 0;
+  let cheatLog = [];
+  let isWarningActive = false;
+
+  async function callGAS(action, data = {}) {
+    try {
+        const res = await fetch(GAS_URL, {
+            method: "POST",
+            body: JSON.stringify({ action, ...data })
+        });
+        return await res.json();
+    } catch (e) { console.error("GAS Error:", e); }
+  }
+
+  function shuffleArray(array) {
+    if (!array) return [];
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  function kioskMode() {
+    const el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  }
+
+  // --- LOGIKA DETEKSI KECURANGAN ---
+  window.addEventListener('blur', () => {
+    if (timeLeft > 0 && !isWarningActive) {
+      cheatCount++;
+      let t = new Date().toLocaleTimeString();
+      cheatLog.push(`[${t}] Keluar Layar/Pindah Tab`);
+      
+      if (cheatCount >= 3) { 
+        alert("SISTEM: Anda melanggar batas (3x pindah tab). Jawaban dikirim otomatis."); 
+        finalSubmit("Diskualifikasi (Pindah Tab)"); 
+      }
+      else { 
+        alert("PERINGATAN: Jangan keluar layar! Pelanggaran: " + cheatCount + "/3"); 
+      }
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (timeLeft > 0) {
+        // Jika lebar jendela kurang dari 80% layar asli, asumsikan split screen
+        if (window.innerWidth < screen.width * 0.8) {
+            document.getElementById('securityOverlay').style.display = 'block';
+            if(!isWarningActive) {
+                isWarningActive = true;
+                cheatLog.push(`[${new Date().toLocaleTimeString()}] Deteksi Split Screen`);
+            }
+        } else {
+            document.getElementById('securityOverlay').style.display = 'none';
+            isWarningActive = false;
+        }
+    }
+  });
+
+  async function handleLogin(role) {
+    const kls = document.getElementById('kelas').value, user = document.getElementById('username').value, pass = document.getElementById('password').value;
+    if(!kls || !user || !pass) return alert("Lengkapi data login!");
+    
+    const res = await callGAS('loginUser', { kelas: kls, username: user, password: pass, role: role });
+    if (res && res.success) {
+      userData = { ...res, kelas: kls };
+      document.getElementById('loginPage').classList.add('hidden');
+      if (role === 'siswa') {
+        document.getElementById('subjectPage').classList.remove('hidden');
+        document.getElementById('welcomeUser').innerText = "Halo, " + res.nama;
+      } else { document.getElementById('teacherDashboard').classList.remove('hidden'); }
+    } else alert(res ? res.msg : "Koneksi Gagal");
+  }
+
+  async function startExamSequence() {
+    const mapel = document.getElementById('mapel').value, tk = userData.kelas.substring(0, 1);
+    const mapel90 = ['Matematika', 'Bahasa Indonesia', 'Bahasa Inggris', 'IPA','IPS'];
+    timeLeft = mapel90.includes(mapel) ? 90 * 60 : 60 * 60;
+    
+    const btn = document.getElementById('btnMulai');
+    btn.innerText = "MEMUAT SOAL...";
+    btn.disabled = true;
+
+    kioskMode();
+    const config = await callGAS('getExamConfig', { mapel, tingkat: tk });
+    
+    if (!config) {
+        alert("Soal tidak ditemukan!");
+        btn.innerText = "MULAI SEKARANG";
+        btn.disabled = false;
+        return;
+    }
+    
+    examConfig = config; 
+
+    const [resPG, resESAI] = await Promise.all([
+        callGAS('fetchQuestions', { url: config.pgUrl, type: 'PG' }),
+        callGAS('fetchQuestions', { url: config.esaiUrl, type: 'ESAI' })
+    ]);
+
+    questionsPG = shuffleArray(resPG || []);
+    questionsESAI = shuffleArray(resESAI || []);
+    pgKunci = questionsPG.map(q => q.kunci);
+
+    if (!timerInterval) startTimer();
+    
+    switchMode('PG');
+    document.getElementById('subjectPage').classList.add('hidden');
+    document.getElementById('examPage').classList.remove('hidden');
+  }
+
+  function switchMode(mode) {
+    currentMode = mode;
+    questions = (mode === 'PG') ? questionsPG : questionsESAI;
+    
+    const tPG = document.getElementById('btnTabPG');
+    const tESAI = document.getElementById('btnTabESAI');
+    const label = document.getElementById('labelMode');
+
+    if(mode === 'PG') {
+        tPG.className = "flex-1 py-2 rounded-xl font-bold text-xs transition-all border-2 border-blue-700 bg-blue-700 text-white";
+        tESAI.className = "flex-1 py-2 rounded-xl font-bold text-xs transition-all border-2 border-gray-200 text-gray-400";
+        label.innerText = "PILIHAN GANDA";
+        label.className = "bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-xs font-bold mr-2";
+    } else {
+        tESAI.className = "flex-1 py-2 rounded-xl font-bold text-xs transition-all border-2 border-emerald-600 bg-emerald-600 text-white";
+        tPG.className = "flex-1 py-2 rounded-xl font-bold text-xs transition-all border-2 border-gray-200 text-gray-400";
+        label.innerText = "ESAI";
+        label.className = "bg-emerald-100 text-emerald-700 px-3 py-1 rounded-lg text-xs font-bold mr-2";
+    }
+
+    currentIdx = 0;
+    renderNav();
+    showSoal(0);
+  }
+
+  function showSoal(idx) {
+    currentIdx = idx; 
+    if (questions.length === 0) {
+        document.getElementById('soalContainer').innerHTML = "<p class='text-center py-10 text-gray-400'>Tidak ada soal di kategori ini.</p>";
+        return;
+    }
+
+    const q = questions[idx];
+    document.getElementById('infoNomor').innerText = "Nomor " + (idx + 1);
+    
+    let h = q.img ? `<img src="${q.img}" class="max-w-full h-48 mx-auto mb-6 rounded shadow">` : '';
+    h += `<div class="text-2xl mb-8 font-bold">${q.soal}</div>`;
+    
+    if (currentMode === 'PG') {
+      ['a','b','c','d'].forEach(o => {
+        const val = o.toUpperCase();
+        const ch = answers["PG_"+idx] === val ? 'checked' : '';
+        h += `<label class="block p-4 border rounded-xl mb-3 cursor-pointer hover:bg-blue-50 transition">
+          <input type="radio" name="opt" value="${val}" ${ch} onclick="saveAns('${val}')"> ${val}. ${q[o]}
+        </label>`;
+      });
+    } else {
+      const val = answers["ESAI_"+idx] || "";
+      h += `<textarea oninput="saveAns(this.value)" class="w-full border-2 p-4 rounded-xl h-48 focus:ring-4 focus:ring-emerald-50" placeholder="Tulis jawaban esai Anda di sini...">${val}</textarea>`;
+    }
+
+    document.getElementById('soalContainer').innerHTML = h;
+    
+    if (window.MathJax) {
+        MathJax.typesetPromise([document.getElementById('soalContainer')]).catch((err) => console.log(err));
+    }
+
+    document.getElementById('prevBtn').classList.toggle('hidden', idx === 0);
+    const isLast = idx === questions.length - 1;
+    document.getElementById('nextBtn').classList.toggle('hidden', isLast);
+    const fBtn = document.getElementById('finishBtn');
+    fBtn.classList.toggle('hidden', !(currentMode === 'ESAI' && isLast));
+    
+    updateNavUI();
+  }
+
+  function saveAns(v) { 
+    answers[currentMode + "_" + currentIdx] = v; 
+    updateNavUI(); 
+  }
+
+  function handleStepTransition() {
+    if (confirm("Kumpulkan semua jawaban sekarang?")) {
+        finalSubmit("Selesai Normal");
+    }
+  }
+
+  function renderNav() {
+    let h = ''; 
+    questions.forEach((_, i) => h += `<div id="nav-${i}" onclick="showSoal(${i})" class="question-nav shadow-sm">${i + 1}</div>`);
+    document.getElementById('navGrid').innerHTML = h;
+  }
+
+  function updateNavUI() {
+    document.querySelectorAll('.question-nav').forEach((el, i) => {
+      el.classList.remove('active', 'done');
+      if (i === currentIdx) el.classList.add('active');
+      if (answers[currentMode + "_" + i]) el.classList.add('done');
+    });
+  }
+
+  function changeSoal(s) { 
+    showSoal(currentIdx + s); 
+  }
+
+  function startTimer() {
+    timerInterval = setInterval(() => {
+      let m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+      document.getElementById('timer').innerText = `${m}:${s < 10 ? '0'+s : s}`;
+      if (timeLeft <= 0) { clearInterval(timerInterval); finalSubmit("Waktu Habis"); }
+      timeLeft--;
+    }, 1000);
+  }
+
+  async function finalSubmit(statusOverride = "Selesai Normal") {
+    clearInterval(timerInterval);
+    document.getElementById('examPage').innerHTML = "<div class='text-center py-20 font-black text-2xl'>MENGIRIM JAWABAN...<br><span class='text-sm font-normal'>Status: "+statusOverride+"</span></div>";
+    
+    await callGAS('processFinalSubmit', { 
+        kelas: userData.kelas, 
+        row: userData.row, 
+        answers, 
+        pgKunci,
+        status: statusOverride,
+        pelanggaran: cheatCount,
+        catatan: cheatLog.join("\n")
+    });
+    
+    alert("Jawaban Berhasil Terkirim!"); 
+    location.reload();
+  }
+
+  async function loadRekap(kls) {
+    if(!kls) return;
+    const data = await callGAS('getRekapNilai', { kelas: kls });
+    localRekap = data;
+    let h = '';
+    data.forEach((s, i) => h += `<div onclick="viewDetail(${i})" class="p-3 bg-white border rounded-xl cursor-pointer hover:border-emerald-500 font-bold">${s.absen}. ${s.nama}</div>`);
+    document.getElementById('absensiDiv').innerHTML = h;
+  }
+
+  function viewDetail(i) {
+    const s = localRekap[i];
+    document.getElementById('detailDiv').innerHTML = `
+      <h4 class="text-2xl font-black">${s.nama}</h4>
+      <div class="flex gap-2 mb-4 mt-2">
+        <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold uppercase">${s.status || 'Selesai'}</span>
+        <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-bold uppercase">Pelanggaran: ${s.pelanggaran || 0}</span>
+      </div>
+      <div class="grid grid-cols-2 gap-4 mt-4">
+        <div class="bg-emerald-100 p-4 rounded-xl text-center font-bold">Benar: ${s.benar}</div>
+        <div class="bg-red-100 p-4 rounded-xl text-center font-bold">Salah: ${s.salah}</div>
+      </div>
+      <div class="mt-6">
+        <p class="font-bold text-sm mb-1 text-gray-400 uppercase italic">Log Pelanggaran:</p>
+        <div class="p-3 bg-red-50 text-red-700 text-xs font-mono rounded-lg border border-red-100 whitespace-pre-wrap mb-4">${s.catatan || 'Tidak ada pelanggaran tercatat'}</div>
+        <p class="font-bold text-sm mb-1 text-gray-400 uppercase italic">Jawaban Esai:</p>
+        <div class="p-4 bg-white border rounded-xl font-medium whitespace-pre-wrap">${s.esai || "Tidak ada jawaban esai."}</div>
+      </div>
+    `;
+    if (window.MathJax) {
+        MathJax.typesetPromise([document.getElementById('detailDiv')]);
+    }
+  }
+</script>
 </body>
 </html>
